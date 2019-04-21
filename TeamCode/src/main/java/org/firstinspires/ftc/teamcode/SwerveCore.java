@@ -74,19 +74,8 @@ public class SwerveCore extends OpMode {
     SwerveDrive ourSwerve;
 
 
-    DcMotor climber;
-    DcMotor vSlide;
-    DcMotor hSlide;
-    DcMotor intake;
-
-    Servo wristL;
-    Servo wristR;
-    Servo dump;
-
-
 
     // *** Sensors ***
-    DistanceSensor heightL;
     private BNO055IMU ourIMU;
 
         // IMU calibration file
@@ -170,9 +159,6 @@ public class SwerveCore extends OpMode {
         swerveNumberFormat = new DecimalFormat("0.00");
 
 
-        crater = Boolean.TRUE;
-
-
 
         // Record the starting time for this OpMode
         startDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
@@ -209,18 +195,6 @@ public class SwerveCore extends OpMode {
         swerveDebugDevice(500, "Right Rear Motor", motorRightRear);
 
 
-        climber = hardwareMap.dcMotor.get("climber");
-        climber.setDirection(DcMotor.Direction.REVERSE);
-        swerveDebugDevice(500, "climber", climber);
-        vSlide = hardwareMap.dcMotor.get("vSlide");
-        swerveDebugDevice(500, "Vertical Slide", vSlide);
-        hSlide = hardwareMap.dcMotor.get("hSlide");
-        swerveDebugDevice(500, "Horizontal Slide", hSlide);
-        intake = hardwareMap.dcMotor.get("intake");
-        swerveDebugDevice(500, "Intake", intake);
-        intake.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
 
         swerveDebug(500, "SwerveCore::init", "MOTORS connected");
 
@@ -240,21 +214,7 @@ public class SwerveCore extends OpMode {
 
 
 
-        wristL = hardwareMap.servo.get("wristL");
-        swerveDebugDevice( 500, "Left Wrist", wristL);
-        wristR = hardwareMap.servo.get("wristR");
-        swerveDebugDevice(500, "Right Wrist", wristR);
-        wristR.setDirection(Servo.Direction.REVERSE);
-        dump = hardwareMap.servo.get("dump");
-        swerveDebugDevice(500, "Dumper", dump);
-
-
-
         swerveDebug(500, "SwerveCore::init", "SERVOS connected");
-
-
-        //Silver ball loader Servo
-        //silverLoad = hardwareMap.servo.get("SilverLoader");
 
 
         // battery power
@@ -262,9 +222,6 @@ public class SwerveCore extends OpMode {
         //    https://www.reddit.com/r/FTC/comments/3odx26/is_it_possible_to_get_the_battery_voltage/
         //batteryVoltSensor = hardwareMap.voltageSensor.get("Expansion Hub 4");
         //swerveDebugDevice(500,"Battery Voltage Sensor", batteryVoltSensor);
-
-        heightL = hardwareMap.get(DistanceSensor.class, "HeightL");
-        swerveDebugDevice(500, "Height Sensor Left", heightL);
 
         // Rev has a built-in IMU for relative position information. The swerve drive uses the IMU.
         ourIMU = hardwareMap.get(BNO055IMU.class, "imu");
@@ -391,7 +348,6 @@ public class SwerveCore extends OpMode {
         swerveLog( "X S6", ourSwerve.getOrientLog());
         swerveLog( "X S8", ourSwerve.getHeightLog());
         swerveLog( "X S9", ourSwerve.getGravXYZAccel());
-        swerveLog( "X S10", String.valueOf(vSlide.getCurrentPosition()));
     }
 
 
